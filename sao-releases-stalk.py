@@ -5,16 +5,36 @@ from win10toast import ToastNotifier
   
 ttttime = time.asctime()
 
-kadokawa = Request('https://www.kadokawa.co.jp/product/322102000017/', #Change the 322102000017 
+
+
+# Questionning stuff
+coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview:\n")
+
+if coverorpreview == "1":
+    coveritis = coverorpreview
+    coverID = input("Enter the Kadokawa ID of the release (example: '322102000017'):\n")
+    kadokawa = Request('https://www.kadokawa.co.jp/product/'+coverID+'/',
               headers={'User-Agent': 'Mozilla/5.0'})
+    # When switching to image hash, call kdkw_500, kdkw_1000 & amzhost, maybe amz too
+
+elif coverorpreview == "2":
+    previewitis = coverorpreview
+    previewID = input("Enter Bookwalker's ID of the release (remove the 'de' at the beginning pls):\n")
+    bookwalker = Request('https://bookwalker.jp/de'+previewID+'/',
+              headers={'User-Agent': 'Mozilla/5.0'})
+else: 
+    print("Wrong input")
 
 
 
+
+
+# KADOKAWA PART
 def notification_push():
     hr=ToastNotifier()
     hr.show_toast("Hey, something changed on Kadokawa")
 
-  
+
 response = urlopen(kadokawa).read() # Performing a GET request
   
 
@@ -42,3 +62,9 @@ while True:
             currentHash = hashlib.sha224(response).hexdigest()
   
             time.sleep(30)
+
+
+# BOOKWALKER PART
+        # else:
+        #     notification
+        #     print 'bookwalkerripper.py '+ previewID + filepath

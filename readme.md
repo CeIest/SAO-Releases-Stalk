@@ -1,7 +1,7 @@
 
 ## SAO Releases Stalk
 
-Personal project that allows to get people notified whenever an official selling site uploads a cover of a newly SAO release. Currently only supports Kadokawa.
+Personal project that allows people to get notified whenever kadokawa uploads the cover/Bookwalker uploads the preview of a newly SAO release. Currently only supports Kadokawa.
 
 tested with Python 3.9.5 on Windows 10.
 
@@ -11,14 +11,12 @@ tested with Python 3.9.5 on Windows 10.
 - Download the repository
 - Do `pip install -r requirements.txt`
 - Launch the `sao-releases-stalk.py` file with your Command Prompt
+- Follow the instructions
 - Wait until you get a notification
-
-You may want to change the values of the URL [here](https://github.com/CeIest/SAO-Releases-Stalk/blob/main/sao-releases-stalk.py#L8), with the said release ID
 
 
 ## To-do list
-- Get the hash of an empty file page somehow, and switch to that
-- Support multiple websites
+- switch to image hash, add kdkw_500, kdkw_1000 & amzhost for Kadokawa
 - Add mail support
-- Support Bookwalker's preview detection (and launch my local ripping tool at the same time)
-- Add an ""estimated"" waiting time
+- Add Bookwalker support
+- Differentiate Kadokawa and Bookwalker
