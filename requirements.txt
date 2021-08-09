@@ -1,0 +1,14 @@
+winrt
+urllib3
+requests
+win10toast
+
+
+
+
+
+
+
+
+
+
