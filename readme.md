@@ -13,6 +13,7 @@ tested with Python 3.9.5 on Windows 10.
 - Launch the `sao-releases-stalk.py` file with your Command Prompt
 - Wait until you get a notification
 
+You may want to change the values of the URL [here](https://github.com/CeIest/SAO-Releases-Stalk/blob/main/sao-releases-stalk.py#L8), with the said release ID
 
 
 ## To-do list
