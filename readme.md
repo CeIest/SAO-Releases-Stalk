@@ -18,7 +18,7 @@ You may want to change the values of the URL [here](https://github.com/CeIest/SA
 
 ## To-do list
 - Get the hash of an empty file page somehow, and switch to that
-- Add multiple websites at the same time
+- Support multiple websites
 - Add mail support
 - Support Bookwalker's preview detection (and launch my local ripping tool at the same time)
 - Add an ""estimated"" waiting time
