@@ -1,7 +1,7 @@
 
 ## SAO Releases Stalk
 
-Personal project that allows to get people notified whenever an official selling site uploads a cover of a newly SAO release.
+Personal project that allows to get people notified whenever an official selling site uploads a cover of a newly SAO release. Currently only supports Kadokawa.
 
 tested with Python 3.9.5 on Windows 10.
 
