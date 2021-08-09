@@ -19,4 +19,4 @@ tested with Python 3.9.5 on Windows 10.
 - switch to image hash, add kdkw_500, kdkw_1000 & amzhost for Kadokawa
 - Add mail support
 - Add Bookwalker support
-- Differentiate Kadokawa and Bookwalker
+- Add a antomatic Bookwalker ripper support
