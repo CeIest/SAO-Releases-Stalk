@@ -1,6 +1,5 @@
 
 ## SAO Releases Stalk
-______________________________________________
 
 Personal project that allows to get people notified whenever an official selling site uploads a cover of a newly SAO release.
 
@@ -11,7 +10,7 @@ tested with Python 3.9.5 on Windows 10.
 ## Usage
 - Download the repository
 - Do `pip install -r requirements.txt`
-- Launch `sao-releases-stalk.py` file through your CMD
+- Launch the `sao-releases-stalk.py` file with your Command Prompt
 - Wait until you get a notification
 
 
