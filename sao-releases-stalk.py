@@ -1,8 +1,7 @@
 import os
-import webbrowser
 import time
 import requests
-from urllib.request import urlopen, Request
+import webbrowser
 from win10toast import ToastNotifier
   
 ttttime = time.asctime()
@@ -10,7 +9,7 @@ ttttime = time.asctime()
 
 
 
-coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview:\n")
+coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview (broken):\n")
 
 
 
