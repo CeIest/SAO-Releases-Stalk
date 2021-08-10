@@ -11,7 +11,7 @@ from win10toast import ToastNotifier
 
 
 
-coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview (broken):\n")
+coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview:\n")
 
 
 
@@ -57,9 +57,8 @@ if coverorpreview == "1":
 
 # BOOKWALKER PART
 # Checking differences by comparing hashes. A bit problematic to test the code since all of the existing pages have the same hashes
-# Seems to be working...?
 elif coverorpreview == "2":
-    previewID = input("Enter Bookwalker's ID of the release (example: 'ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5':")
+    previewID = input("Enter Bookwalker's ID of the release (example: 'ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5':\n")
     previewID = previewID[2:]
 
 
@@ -75,7 +74,7 @@ elif coverorpreview == "2":
     currentHash = hashlib.sha224(response).hexdigest()
 
 
-    print("brrrrrrrrrr")
+    print("brrrrrrrrrrwalker")
 
     while True:
             response = urlopen(bookwalker).read()
@@ -98,7 +97,6 @@ elif coverorpreview == "2":
                 # os.system("bookwalkerripper.py ", previewID, "E:\rips")
                 # uploads the rips on imgur
                 time.sleep(580)
-
 
 
 else: 
