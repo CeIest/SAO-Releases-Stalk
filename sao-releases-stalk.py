@@ -1,3 +1,5 @@
+__author__ = "Celest"
+
 import os
 import time
 import requests
@@ -29,11 +31,12 @@ if coverorpreview == "1":
     while True:
             kadokawa_1000 = requests.get('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
             kadokawa_500 = requests.get('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
-            # And others, to do later
+            kadokawa_b = requests.get('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg')
+            # And others, to do later (like https://d1hc4zdhstp3wq.cloudfront.net/img/goods/L/322102000017.jpg)
             time.sleep(60)
             
     
-            if kadokawa_1000.status_code == 404 and kadokawa_500.status_code == 404:
+            if kadokawa_1000.status_code == 404 and kadokawa_500.status_code and kadokawa_b.status_code == 404:
                 print("Checked on", ttttime, ", nothing has changed")
                 continue
 
@@ -43,6 +46,7 @@ if coverorpreview == "1":
                 kdkwnotification_push()
                 webbrowser.open('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
                 webbrowser.open('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
+                webbrowser.open('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg')
                 # Notification_mail()
                 # break (but breaks webbrowser, try with a time.sleep idk)
 
