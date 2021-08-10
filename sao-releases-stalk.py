@@ -5,7 +5,7 @@ import hashlib
 import requests
 import webbrowser
 import subprocess
-from urllib.request import urlopen, Request
+from urllib.request import urlopen, Request, urlretrieve
 from win10toast import ToastNotifier
   
 
@@ -33,29 +33,29 @@ if coverorpreview == "1":
             kadokawa_500 = requests.get('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
             kadokawa_b = requests.get('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg')
             # And others, to do later (like https://d1hc4zdhstp3wq.cloudfront.net/img/goods/L/322102000017.jpg)
-            time.sleep(60)
             
     
             if kadokawa_1000.status_code == 404 and kadokawa_500.status_code and kadokawa_b.status_code == 404:
                 gettime = time.asctime()
                 print("Checked on", gettime, ", nothing has changed.")
+                time.sleep(60)
                 continue
 
     
             else:
                 print("The cover has been uploaded on Kadokawa.")
                 kdkwnotification_push()
-                webbrowser.open('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
-                webbrowser.open('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
-                webbrowser.open('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg')
-                # Notification_mail()
-                time.sleep(580)
+                urlretrieve('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg', coverID+"_1000.jpg")
+                urlretrieve('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg', coverID+"_500.jpg")
+                urlretrieve('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg', coverID+"_b.jpg")
+                # To-do: Notification_mail()
+                break
 
 
 
 
 # BOOKWALKER PART
-# Checking differences by comparing hashes. A bit problematic to test the code since all of the existing pages have the same hashes
+# Checking differences by comparing hashes.
 elif coverorpreview == "2":
     previewID = input("Enter Bookwalker's ID of the release (example: 'ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5':\n")
     previewIDtrimmed = previewID[2:]
@@ -85,18 +85,18 @@ elif coverorpreview == "2":
             newHash = hashlib.sha224(response).hexdigest()
 
 
-            if newHash == currentHash: # Comparing the hashes
+            if newHash == currentHash:
                 gettime = time.asctime()
                 print("Checked on", gettime, ", nothing has changed.")
     
             else:
                 print("The preview has been uploaded on Bookwalker.")
                 bwnotification_push()
-                # Notification_mail()
+                # To-do: Notification_mail()
                 print("Ripping the preview...\n")
                 #subprocess.run(["bw-dl.sh", previewIDtrimmed], shell=True)
                 # To-do: the rips on imgur
-                time.sleep(580)
+                break
 
 
 else: 
