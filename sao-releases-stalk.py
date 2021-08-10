@@ -6,8 +6,6 @@ import requests
 import webbrowser
 from win10toast import ToastNotifier
   
-ttttime = time.asctime()
-
 
 
 
@@ -37,7 +35,8 @@ if coverorpreview == "1":
             
     
             if kadokawa_1000.status_code == 404 and kadokawa_500.status_code and kadokawa_b.status_code == 404:
-                print("Checked on", ttttime, ", nothing has changed")
+                gettime = time.asctime()
+                print("Checked on", gettime, ", nothing has changed")
                 continue
 
     
@@ -73,7 +72,8 @@ elif coverorpreview == "2":
             
     
             if bookwalker_preview.status_code == 400:
-                print("Checked on", ttttime, ", nothing has changed")
+                gettime = time.asctime()
+                print("Checked on", gettime, ", nothing has changed")
                 continue
 
     
