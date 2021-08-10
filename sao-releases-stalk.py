@@ -2,8 +2,10 @@ __author__ = "Celest"
 
 import os
 import time
+import hashlib
 import requests
 import webbrowser
+from urllib.request import urlopen, Request
 from win10toast import ToastNotifier
   
 
@@ -13,15 +15,16 @@ coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview (broken)
 
 
 
-
 # KADOKAWA PART
+# Checking differences by reading the status code of the file
 if coverorpreview == "1":
     coverID = input("Enter the Kadokawa ID of the release (example: '322102000017'):\n")
     coverIDpreset = coverID[0:6]
 
+
     def kdkwnotification_push():
         hr=ToastNotifier()
-        hr.show_toast("Hey, the cover has been uploaded on Kadokawa")
+        hr.show_toast("The cover has been uploaded on Kadokawa.")
 
 
     print("Kadokabrrrrrrrrrr")
@@ -36,55 +39,67 @@ if coverorpreview == "1":
     
             if kadokawa_1000.status_code == 404 and kadokawa_500.status_code and kadokawa_b.status_code == 404:
                 gettime = time.asctime()
-                print("Checked on", gettime, ", nothing has changed")
+                print("Checked on", gettime, ", nothing has changed.")
                 continue
 
     
             else:
-                print("The cover has been uploaded on Kadokawa")
+                print("The cover has been uploaded on Kadokawa.")
                 kdkwnotification_push()
                 webbrowser.open('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
                 webbrowser.open('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
                 webbrowser.open('https://cdn.kdkw.jp/cover_b/'+coverIDpreset+'/'+coverID+'.jpg')
                 # Notification_mail()
-                # break (but breaks webbrowser, try with a time.sleep idk)
+                time.sleep(580)
 
 
 
 
-# BOOKWALKER PART (to fix)
+# BOOKWALKER PART
+# Checking differences by comparing hashes. A bit problematic to test the code since all of the existing pages have the same hashes
+# Seems to be working...?
 elif coverorpreview == "2":
-    previewID = input("Enter Bookwalker's ID of the release (remove the 'de' at the beginning pls):\n")
-
+    previewID = input("Enter Bookwalker's ID of the release (example: 'ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5':")
+    previewID = previewID[2:]
 
 
     def bwnotification_push():
         hr=ToastNotifier()
-        hr.show_toast("Hey, the preview has been uploaded on Bookwalker")
+        hr.show_toast("The preview has been uploaded on Bookwalker.")
 
 
-    print("brrrrrrrrrrwalker")
+    bookwalker = Request('https://viewer-trial.bookwalker.jp/03/9/viewer.html?cid='+previewID+'&cty=0',
+              headers={'User-Agent': 'Mozilla/5.0'})
+
+    response = urlopen(bookwalker).read()
+    currentHash = hashlib.sha224(response).hexdigest()
+
+
+    print("brrrrrrrrrr")
 
     while True:
-            bookwalker_preview = requests.get('https://viewer-trial.bookwalker.jp/03/9/viewer.html?cid='+previewID+'&cty=0')
+            response = urlopen(bookwalker).read()
+            currentHash = hashlib.sha224(response).hexdigest()
 
             time.sleep(60)
             
-    
-            if bookwalker_preview.status_code == 400:
-                gettime = time.asctime()
-                print("Checked on", gettime, ", nothing has changed")
-                continue
+            response = urlopen(bookwalker).read()
+            newHash = hashlib.sha224(response).hexdigest()
 
+
+            if newHash == currentHash: # Comparing the hashes
+                gettime = time.asctime()
+                print("Checked on", gettime, ", nothing has changed.")
     
             else:
-                print("The preview has been uploaded on Bookwalker")
+                print("The preview has been uploaded on Bookwalker.")
                 bwnotification_push()
                 # Notification_mail()
                 # os.system("bookwalkerripper.py ", previewID, "E:\rips")
                 # uploads the rips on imgur
+                time.sleep(580)
 
 
 
 else: 
-    print("wrong input")
+    print("Wrong input, please retry")
