@@ -18,5 +18,5 @@ tested with Python 3.9.5 on Windows 10.
 ## To-do list
 - switch to image hash, add kdkw_500, kdkw_1000 & amzhost for Kadokawa
 - Add mail support
-- Add Bookwalker support
-- Add a antomatic Bookwalker ripper support and upload the files on a Drive or whatever
+- Add Bookwalker support (still broken)
+- Automatically upload the ripped bw files on a Drive
