@@ -1,14 +1,13 @@
 __author__ = "Celest"
 
-import os
 import time
 import hashlib
 import requests
 import webbrowser
+import subprocess
 from urllib.request import urlopen, Request
 from win10toast import ToastNotifier
   
-
 
 
 coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview:\n")
@@ -59,7 +58,7 @@ if coverorpreview == "1":
 # Checking differences by comparing hashes. A bit problematic to test the code since all of the existing pages have the same hashes
 elif coverorpreview == "2":
     previewID = input("Enter Bookwalker's ID of the release (example: 'ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5':\n")
-    previewID = previewID[2:]
+    previewIDtrimmed = previewID[2:]
 
 
     def bwnotification_push():
@@ -67,7 +66,7 @@ elif coverorpreview == "2":
         hr.show_toast("The preview has been uploaded on Bookwalker.")
 
 
-    bookwalker = Request('https://viewer-trial.bookwalker.jp/03/9/viewer.html?cid='+previewID+'&cty=0',
+    bookwalker = Request('https://viewer-trial.bookwalker.jp/03/9/viewer.html?cid='+previewIDtrimmed+'&cty=0',
               headers={'User-Agent': 'Mozilla/5.0'})
 
     response = urlopen(bookwalker).read()
@@ -94,8 +93,9 @@ elif coverorpreview == "2":
                 print("The preview has been uploaded on Bookwalker.")
                 bwnotification_push()
                 # Notification_mail()
-                # os.system("bookwalkerripper.py ", previewID, "E:\rips")
-                # uploads the rips on imgur
+                print("Ripping the preview...\n")
+                #subprocess.run(["bw-dl.sh", previewIDtrimmed], shell=True)
+                # To-do: the rips on imgur
                 time.sleep(580)
 
 
