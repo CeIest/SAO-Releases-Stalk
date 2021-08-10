@@ -1,6 +1,7 @@
 import os
+import webbrowser
 import time
-import hashlib
+import requests
 from urllib.request import urlopen, Request
 from win10toast import ToastNotifier
   
@@ -11,85 +12,74 @@ ttttime = time.asctime()
 
 coverorpreview = input("What to track?\n'1' for Cover,\n'2' for Preview:\n")
 
+
+
+
 # KADOKAWA PART
 if coverorpreview == "1":
-    coveritis = coverorpreview
     coverID = input("Enter the Kadokawa ID of the release (example: '322102000017'):\n")
-    kadokawa = Request('https://www.kadokawa.co.jp/product/'+coverID+'/',
-              headers={'User-Agent': 'Mozilla/5.0'})
-    def notification_push():
+    coverIDpreset = coverID[0:6]
+
+    def kdkwnotification_push():
         hr=ToastNotifier()
-        hr.show_toast("Hey, something changed on Kadokawa")
+        hr.show_toast("Hey, the cover has been uploaded on Kadokawa")
 
 
-    response = urlopen(kadokawa).read() # Performing a GET request
-    
+    print("Kadokabrrrrrrrrrr")
 
-    currentHash = hashlib.sha224(response).hexdigest() # Creating the initial hash
-    print("brrrrrrrrrr")
     while True:
-            response = urlopen(kadokawa).read() # Performing a GET request but in the loop
-            currentHash = hashlib.sha224(response).hexdigest() # Creating the hash but in the loop
-
-            time.sleep(30) # 30 seconds between each checks.
+            kadokawa_1000 = requests.get('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
+            kadokawa_500 = requests.get('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
+            # And others, to do later
+            time.sleep(60)
             
-            response = urlopen(kadokawa).read()
-            newHash = hashlib.sha224(response).hexdigest()
     
-            if newHash == currentHash: # Comparing the hashes
-                print("checked on", ttttime, ", nothing has changed")
+            if kadokawa_1000.status_code == 404 and kadokawa_500.status_code == 404:
+                print("Checked on", ttttime, ", nothing has changed")
                 continue
+
     
             else:
-                print("It seems that something changed on Kadokawa. Maybe they uploaded the cover?")
-                notification_push()
+                print("The cover has been uploaded on Kadokawa")
+                kdkwnotification_push()
+                webbrowser.open('https://cdn.kdkw.jp/cover_1000/'+coverIDpreset+'/'+coverID+'.jpg')
+                webbrowser.open('https://cdn.kdkw.jp/cover_500/'+coverIDpreset+'/'+coverID+'.jpg')
                 # Notification_mail()
-    
-                response = urlopen(kadokawa).read()
-                currentHash = hashlib.sha224(response).hexdigest()
-    
-                time.sleep(30)
+                # break (but breaks webbrowser, try with a time.sleep idk)
 
 
 
-# BOOKWALKER PART
+
+# BOOKWALKER PART (to fix)
 elif coverorpreview == "2":
-    previewitis = coverorpreview
     previewID = input("Enter Bookwalker's ID of the release (remove the 'de' at the beginning pls):\n")
-    bookwalker = Request('https://bookwalker.jp/de'+previewID+'/',
-              headers={'User-Agent': 'Mozilla/5.0'})
-    def notification_push():
+
+
+
+    def bwnotification_push():
         hr=ToastNotifier()
-        hr.show_toast("Hey, something changed on Bookwalker")
+        hr.show_toast("Hey, the preview has been uploaded on Bookwalker")
 
 
-    response = urlopen(bookwalker).read() # Performing a GET request
-    
+    print("brrrrrrrrrrwalker")
 
-    currentHash = hashlib.sha224(response).hexdigest() # Creating the initial hash
-    print("brrrrrrrrrr")
     while True:
-            response = urlopen(bookwalker).read() # Performing a GET request but in the loop
-            currentHash = hashlib.sha224(response).hexdigest() # Creating the hash but in the loop
+            bookwalker_preview = requests.get('https://viewer-trial.bookwalker.jp/03/9/viewer.html?cid='+previewID+'&cty=0')
 
-            time.sleep(30) # 30 seconds between each checks.
+            time.sleep(60)
             
-            response = urlopen(bookwalker).read()
-            newHash = hashlib.sha224(response).hexdigest()
     
-            if newHash == currentHash: # Comparing the hashes
-                print("checked on", ttttime, ", nothing has changed")
+            if bookwalker_preview.status_code == 400:
+                print("Checked on", ttttime, ", nothing has changed")
                 continue
+
     
             else:
-                print("It seems that something changed on bookwalker. Maybe they uploaded the cover?")
-                notification_push()
+                print("The preview has been uploaded on Bookwalker")
+                bwnotification_push()
                 # Notification_mail()
-                # os.system("bookwalkerripper.py ", previewID, "E:\rips") # to fix this shit plz
-                response = urlopen(bookwalker).read()
-                currentHash = hashlib.sha224(response).hexdigest()
-    
-                time.sleep(30)
+                # os.system("bookwalkerripper.py ", previewID, "E:\rips")
+                # uploads the rips on imgur
 
 
 
