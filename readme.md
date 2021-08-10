@@ -14,6 +14,8 @@ tested with Python 3.9.5 on Windows 10.
 - Follow the instructions
 - Wait until you get a notification
 
+The "ID" of your release can be found in its URL. (Example: kadokawa.co.jp/product/**322102000017**/ or bookwalker.jp/**ded6f8074d-9a1d-4f57-bcdc-c011aaed6fc5**/)
+
 
 ## To-do list
 - Add mail support
