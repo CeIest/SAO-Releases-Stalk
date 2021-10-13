@@ -76,13 +76,10 @@ elif coverorpreview == "2":
     print("brrrrrrrrrrwalker")
 
     while True:
-            response = urlopen(bookwalker).read()
-            currentHash = hashlib.sha224(response).hexdigest()
-
-            time.sleep(60)
             
             response = urlopen(bookwalker).read()
             newHash = hashlib.sha224(response).hexdigest()
+            time.sleep(60)
 
 
             if newHash == currentHash:
