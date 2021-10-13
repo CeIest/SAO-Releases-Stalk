@@ -24,9 +24,10 @@ The "ID" of the release can be found in its URL. (Example: kadokawa.co.jp/produc
 ### To enable the option that rips the images of the Bookwalker preview:
 - Install [this](https://github.com/Atemu/bookwalker-dl) (and its dependencies)
 - Rename `bw-dl.bash` to `bw-dl.sh`, and stick the file next to `sao-releases-stalk.py`
-- Uncomment the [97th line](https://github.com/CeIest/SAO-Releases-Stalk/blob/main/sao-releases-stalk.py#L97) of the main script
+- Uncomment the [94th line](https://github.com/CeIest/SAO-Releases-Stalk/blob/main/sao-releases-stalk.py#L94) of the main script
 
 
 ## To-do list
 - Add e-mail support
 - Automatically upload the ripped bw files on Imgur or on a Drive
+- Write the repo's own ripper
