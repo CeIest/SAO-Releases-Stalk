@@ -79,20 +79,20 @@ elif coverorpreview == "2":
             
             response = urlopen(bookwalker).read()
             newHash = hashlib.sha224(response).hexdigest()
-            time.sleep(60)
 
 
             if newHash == currentHash:
                 gettime = time.asctime()
                 print("Checked on", gettime, ", nothing has changed.")
+                time.sleep(60)
     
             else:
                 print("The preview has been uploaded on Bookwalker.")
                 bwnotification_push()
-                # To-do: Notification_mail()
+                # To-do: Email notification or whatever else
                 print("Ripping the preview...\n")
                 #subprocess.run(["bw-dl.sh", previewIDtrimmed], shell=True)
-                # To-do: the rips on imgur
+                # To-do: Automatically upload the rips on imgur
                 break
 
 
